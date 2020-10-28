@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 
 from sklearn.preprocessing import PolynomialFeatures
-poly_reg = PolynomialFeatures(degree = 5)
+poly_reg = PolynomialFeatures(degree = 4)
 
 
 app = Flask(__name__)
@@ -20,7 +20,7 @@ def home():
 
 @app.route('/model',methods=['POST','GET'])
 def model():
-    model = pickle.load(open('model.sav','rb'))
+    model = pickle.load(open('diet.sav','rb'))
     myList = []
 
 
@@ -28,16 +28,12 @@ def model():
 
         response = request.get_json()
         print(response)
-        pregnancies = response.get('pregnancies')
-        myList.append(float(pregnancies))
+        
         glucose = response.get('glucose')
         myList.append(float(glucose))
         bloodPressure = response.get('bloodPressure')
         myList.append(float(bloodPressure))
-        skinThickness = response.get('skinThickness')
-        myList.append(float(skinThickness))
-        insulin = response.get('insulin')
-        myList.append(float(insulin))
+        
         bmi = response.get('bmi')
         myList.append(float(bmi))
         age = response.get('age')
